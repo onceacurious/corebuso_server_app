@@ -42,12 +42,11 @@ else:
     ]
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'railway',
-            'USER': 'postgres',
-            'PASSWORD': 'OI8h6faDSoTCQoAhjmJd',
-            'HOST': 'containers-us-west-144.railway.app',
-            'PORT': '6405'
+            'ENGINE': 'django.db.backends.mysql',
+            'NAME': 'corebuso$corebuso_db',
+            'USER': 'corebuso',
+            'PASSWORD': 'qweasdDqw9874',
+            'HOST': 'corebuso.mysql.pythonanywhere-services.com',
         }
     }
     CSRF_COOKIE_SECURE = True
