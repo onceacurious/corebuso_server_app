@@ -2,7 +2,7 @@ from django.db.models import Q
 from rest_framework import status
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
+from rest_framework.permissions import IsAuthenticated, IsAdminUser, IsAuthenticatedOrReadOnly
 
 from .models import Inquiry, TestUser
 from .serializers import InquirySerializer, TestUserSerializer
@@ -27,7 +27,7 @@ def endpoints(request):
 
 
 @api_view(['GET', 'POST'])
-@permission_classes([IsAuthenticated])
+# @permission_classes([IsAuthenticated])
 def inquiry(request, format=None):
     if request.method == 'GET':
         inquiry = Inquiry.objects.all()
@@ -44,7 +44,7 @@ def inquiry(request, format=None):
 
 
 @api_view(['GET', 'PUT', 'DELETE'])
-@permission_classes([IsAdminUser])
+@permission_classes([IsAuthenticatedOrReadOnly])
 def inquiry_detail(request, pk, format=None):
 
     try:

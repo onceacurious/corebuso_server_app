@@ -18,7 +18,7 @@ SECRET_KEY = config('SECRET_KEY')
 # SECRET_KEY = data["SECRET_KEY"]
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
@@ -26,6 +26,8 @@ if DEBUG:
 
     CORS_ALLOWED_ORIGINS = [
         'http://127.0.0.1:5173',
+        'https://corebuso.com',
+        'https://dev.corebuso.com',
     ]
     DATABASES = {
         'default': {
@@ -154,14 +156,6 @@ STATIC_URL = 'static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
-# REST_FRAMEWORK = {
-#     'DEFAULT_AUTHENTICATION_CLASSED':
-#     (
-#         'rest_framework_simplejwt.authentication.JWTAuthentication',
-
-#     )
-
-# }
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
