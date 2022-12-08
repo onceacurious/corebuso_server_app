@@ -45,7 +45,7 @@ else:
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'corebuso$corebuso_db',
             'USER': 'corebuso',
-            'PASSWORD': 'qweasdDqw9874',
+            'PASSWORD': config('PASSWORD'),
             'HOST': 'corebuso.mysql.pythonanywhere-services.com',
         }
     }
