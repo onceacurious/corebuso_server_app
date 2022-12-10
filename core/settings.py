@@ -8,16 +8,6 @@ import json
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-SECRET_KEY = config('SECRET_KEY')
-
-# f = open('.env/secrets.json')
-
-# data = json.load(f)
-
-# # SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = data["SECRET_KEY"]
-
-# SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = False
 
 ALLOWED_HOSTS = ['*']
@@ -35,16 +25,27 @@ if DEBUG:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+    SECRET_KEY = config('SECRET_KEY')
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.mysql',
+            'OPTIONS': {
+                'read_default_file': 'my.cnf'
+            }
+        }
+    }
 else:
     CORS_ALLOWED_ORIGINS = [
         'https://corebuso.com',
         'https://dev.corebuso.com',
     ]
+
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.mysql',
             'NAME': 'corebuso$corebuso_db',
             'USER': 'corebuso',
+            # manual encode password on deployment
             'PASSWORD': config('PASSWORD'),
             'HOST': 'corebuso.mysql.pythonanywhere-services.com',
         }
@@ -53,6 +54,8 @@ else:
     SESSION_COOKIE_SECURE = True
     SECURE_SSL_REDIRECT = True
     SECURE_HSTS_SECONDS = 5
+    # manual encode secret on deployment
+    SECRET_KEY = config('SECRET_KEY')
 
 
 CORS_ALLOWED_CREDENTIALS = True
@@ -158,6 +161,9 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ),
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
     )
 }
 

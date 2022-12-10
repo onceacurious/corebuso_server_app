@@ -12,6 +12,7 @@ from .serializers import AccountSerializer, AccountFrontendSerializer
 
 
 @api_view(["GET"])
+@permission_classes([AllowAny])
 def endpoints(request, format=None):
     context = [
         'POST: /register/',
