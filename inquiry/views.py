@@ -14,7 +14,8 @@ from .serializers import InquirySerializer, TestUserSerializer
 @permission_classes([AllowAny])
 def endpoints(request):
     data = [
-        '/inquiry',
+        '[GET]: /inquiries',
+        '[POST]: /inquiry',
         '/subscription',
         '/demo',
         '/inquiry/str:pk',
@@ -29,6 +30,13 @@ def endpoints(request):
 
 @api_view(['GET'])
 def inquiry(request, format=None):
+    """Get all inquiries
+
+    Method: GET
+
+    Returns:
+        list: All inquiries
+    """
     inquiry = Inquiry.objects.all()
     serializer = InquirySerializer(inquiry, many=True)
     return Response(serializer.data)
@@ -37,6 +45,13 @@ def inquiry(request, format=None):
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def add_inquiry(request, format=None):
+    """Inquiries from frontend/client
+
+    Method: POST       
+
+    Returns:
+        None
+    """
     serializer = InquirySerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
